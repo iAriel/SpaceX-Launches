@@ -6,6 +6,8 @@ export const GlobalStyle = createGlobalStyle`
         --gray-light: #C0C0C0;
         --gray: #C0C0C0;
         --light: #FFFFFF;
+        --green: #307351;
+        --red: #bf211e;
     }
 
     *{
