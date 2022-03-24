@@ -1,60 +1,32 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { CircleLoader } from "react-spinners";
-import { api } from "../../services/api";
-import { Card } from "../Card";
-import { Container, Content } from "./styles";
-
-type CardPropsState = {
-    mission_name: string;
-    flight_number: number;
-    rocket:{
-        rocket_name: string;
-    };
-    launch_success: boolean; 
-    launch_year: number;
-    flight_id: string;
-    links: {
-        mission_patch_small: string;
-    };
-}
+import { UpcomingLaunches } from "../OutcomingLaunches";
+import { PastLaunches } from "../PastLaunches";
+import { Container, Content, ButtonContainer } from "./styles";
 
 export function Table() {
-    const [pastLaunches, setPastLaunches] = useState<CardPropsState[]>([])
-    // const [upcomingLaunches, setUpcomingLaunches] = useState([])
+    
+    const [handleRender, setHandleRender] = useState(false);
 
-    function Spinner(){
-        return(
-            <>
-                <CircleLoader color={'#FFFFFF'}/>
-                <p className='loading'>loading</p>
-            </>
-        );
+    function handleShowPastLaunches(){
+        setHandleRender(false)
     }
-
-    useEffect(()=> {
-        api.get('/past')
-        .then(response => setPastLaunches(response.data))
-    }, [])
-    console.log(pastLaunches[0])
-
+    function handleShowUpcomingLaunches(){
+        setHandleRender(true)
+    }
     return(
         <Container>
             <h1>Launches</h1>
-            {pastLaunches.length === 0 ? Spinner() : null}
+            <ButtonContainer>
+                <button onClick={handleShowPastLaunches}>Past launches</button>
+                <button onClick={handleShowUpcomingLaunches}>Upcoming launches</button>
+            </ButtonContainer>
         <Content>
-            {pastLaunches.map(pastLaunche => {
-                return(
-                    <Card 
-                        key={pastLaunche.mission_name}
-                        missionName={pastLaunche.mission_name}
-                        missionYear={pastLaunche.launch_year}
-                        launchNumber={pastLaunche.flight_number}
-                        launchSuccess={pastLaunche.launch_success}
-                        rocketName={pastLaunche.rocket.rocket_name}
-                        image={pastLaunche.links.mission_patch_small}
-                    />
-                )
-            })}
+            {!handleRender ? 
+                <PastLaunches/>
+                :
+                <UpcomingLaunches/>
+            }
         </Content>
         </Container>
     )

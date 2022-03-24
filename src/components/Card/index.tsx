@@ -12,13 +12,13 @@ interface CardProps {
 export function Card({missionName, missionYear, launchNumber, launchSuccess,rocketName, image}: CardProps){
     return(
         <Container>
-            <img src={image} alt="foguete"/>
+            {image ? <img src={image} alt="Rocket"/> : <span className='no-image'>No image</span>}
             <Details>
-                <p className="mission-name">Name: {missionName} </p>
-                <p className="mission-year">Year: {missionYear} </p>
-                <p className="rocket-name"> Rocket: {rocketName} </p>
-                <p className="launch-number">Launch Number: {launchNumber}</p>
-                <p className='status'>Success: <span className={`${launchSuccess}`}> </span></p>
+                <p className="mission-name">{missionName} </p>
+                <p className="mission-year">{missionYear} </p>
+                <p className="rocket-name">{rocketName} </p>
+                <p className="launch-number">{launchNumber}</p>
+                <p className='status'><span className={`${launchSuccess}`}> </span></p>
             </Details>
         </Container>
     );
