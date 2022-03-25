@@ -1,5 +1,9 @@
 import { Container, Details } from "./styles";
 
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { useEffect } from "react";
+
 interface CardProps {
     missionName: string;
     missionYear: number;
@@ -10,8 +14,13 @@ interface CardProps {
 }
 
 export function Card({missionName, missionYear, launchNumber, launchSuccess,rocketName, image}: CardProps){
+
+    useEffect(() => {
+        AOS.init()
+    }, [])
+    
     return(
-        <Container>
+        <Container data-aos="zoom-in">
             {image ? <img src={image} alt="Rocket"/> : <span className='no-image'>No image</span>}
             <Details>
                 <p className="mission-name">{missionName} </p>

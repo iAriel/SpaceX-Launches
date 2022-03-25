@@ -16,8 +16,16 @@ type CardPropsState = {
         mission_patch_small: string;
     };
 }
+type FilterLaunchProps = {
+    launch_year: number,
+    launch_success: string, 
+}
 
-export function PastLaunches(){
+interface LauncheProps {
+    isRendering: boolean;
+    filterLaunche: FilterLaunchProps;
+}
+export function PastLaunches({isRendering, filterLaunche}: LauncheProps){
     const [pastLaunches, setPastLaunches] = useState<CardPropsState[]>([])
 
 
@@ -25,13 +33,19 @@ export function PastLaunches(){
         api.get('/past')
         .then(response => setPastLaunches(response.data))
     }, [])
+
+    useEffect(() =>{
+        api.get(`/past?launch_year=${filterLaunche.launch_year}&launch_success${filterLaunche.launch_success}`)
+        .then(response => setPastLaunches(response.data))
+        console.log('foi')
+    }, [filterLaunche])
+
     return(
         <>
             {pastLaunches.length !== 0 || <Spinner/>}
             {pastLaunches.map(pastLaunche => {
                 return(
                     <Card
-                        data-aos="zoom-in" 
                         key={pastLaunche.mission_name}
                         missionName={pastLaunche.mission_name}
                         missionYear={pastLaunche.launch_year}

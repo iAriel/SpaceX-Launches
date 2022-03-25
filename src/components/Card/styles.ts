@@ -8,8 +8,8 @@ export const Container = styled.div`
     
     background-color: var(--light);
     
-    border-radius: 5px;
-    border: 1px solid var(--light);
+    border-radius: 0.31rem;
+    border: 0.06rem solid var(--light);
 
     img, .no-image{ 
         border-bottom: none;
@@ -21,7 +21,7 @@ export const Container = styled.div`
 
 export const Details = styled.div`
     width: 25rem;
-    border-radius: 0 0 5px 5px;
+    border-radius: 0 0 0.31rem 0.31rem;
     background: var(--light);
     border-top:1px solid var(--gray);
     p{

@@ -15,7 +15,7 @@ export const GlobalStyle = createGlobalStyle`
         padding: 0;
         box-sizing: border-box;
     }
-
+    
     html{
         @media (max-width: 1080px){
             font-size:93.75%; 

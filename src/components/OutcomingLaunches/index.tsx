@@ -16,21 +16,35 @@ type CardPropsState = {
         mission_patch_small: string;
     };
 }
+type FilterLaunchProps = {
+    launch_year: number,
+    launch_success: string, 
+}
+interface LauncheProps {
+    isRendering: boolean;
+    filterLaunche: FilterLaunchProps;
+}
 
-export function UpcomingLaunches(){
+
+export function UpcomingLaunches({isRendering, filterLaunche}: LauncheProps){
     const [upcomingLaunches, setUpcomingLaunches] = useState<CardPropsState[]>([])
 
     useEffect(()=> {
         api.get('/upcoming')
         .then(response => setUpcomingLaunches(response.data))
     }, [])
+
+    useEffect(() =>{
+        api.get(`/upcoming?launch_year=${filterLaunche.launch_year}&launch_success${filterLaunche.launch_success}`)
+        .then(response => setUpcomingLaunches(response.data))
+    }, [filterLaunche])
     return(
         <>
-            {upcomingLaunches.length !== 0 || <Spinner/>}
+            {upcomingLaunches.length !== 0 || <Spinner />}
             {upcomingLaunches.map(upcomingLaunche => {
-                return(
+                return (
                     <Card
-                        data-aos="zoom-in" 
+                        data-aos="zoom-in"
                         key={upcomingLaunche.mission_name}
                         missionName={upcomingLaunche.mission_name}
                         missionYear={upcomingLaunche.launch_year}
