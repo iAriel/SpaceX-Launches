@@ -17,7 +17,7 @@ type CardPropsState = {
     };
 }
 type FilterLaunchProps = {
-    launch_year: number,
+    launch_year: string,
     launch_success: string, 
 }
 interface LauncheProps {
@@ -35,8 +35,11 @@ export function UpcomingLaunches({isRendering, filterLaunche}: LauncheProps){
     }, [])
 
     useEffect(() =>{
-        api.get(`/upcoming?launch_year=${filterLaunche.launch_year}&launch_success${filterLaunche.launch_success}`)
-        .then(response => setUpcomingLaunches(response.data))
+        if(isRendering === true){
+            api.get(`/past?launch_year=${filterLaunche.launch_year}&launch_success=${filterLaunche.launch_success}`)
+            .then(response => setUpcomingLaunches(response.data))
+            console.log(filterLaunche.launch_success)
+        }
     }, [filterLaunche])
     return(
         <>

@@ -100,6 +100,7 @@ export const FilterContainer = styled.form`
         border: 0.06rem solid var(--light);
         padding: 0.1rem 1rem;
         transition: 0.2s;
+        margin-left: 1rem;
 
         &:hover{
             filter:brightness(0.9);

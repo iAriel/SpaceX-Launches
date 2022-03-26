@@ -3,6 +3,7 @@ import { api } from "../../services/api";
 import { Card } from "../Card";
 import { Spinner } from "../Spinner";
 
+
 type CardPropsState = {
     mission_name: string;
     flight_number: number;
@@ -17,7 +18,7 @@ type CardPropsState = {
     };
 }
 type FilterLaunchProps = {
-    launch_year: number,
+    launch_year: string,
     launch_success: string, 
 }
 
@@ -28,21 +29,21 @@ interface LauncheProps {
 export function PastLaunches({isRendering, filterLaunche}: LauncheProps){
     const [pastLaunches, setPastLaunches] = useState<CardPropsState[]>([])
 
-
     useEffect(()=> {
         api.get('/past')
         .then(response => setPastLaunches(response.data))
     }, [])
 
     useEffect(() =>{
-        api.get(`/past?launch_year=${filterLaunche.launch_year}&launch_success${filterLaunche.launch_success}`)
-        .then(response => setPastLaunches(response.data))
-        console.log('foi')
+        if(isRendering === false){
+            api.get(`/past?launch_year=${filterLaunche.launch_year}&launch_success=${filterLaunche.launch_success}`)
+            .then(response => setPastLaunches(response.data))
+        }
     }, [filterLaunche])
 
     return(
         <>
-            {pastLaunches.length !== 0 || <Spinner/>}
+            {pastLaunches.length !== 0 || <Spinner/>}  
             {pastLaunches.map(pastLaunche => {
                 return(
                     <Card
