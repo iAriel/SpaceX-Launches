@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from 'react-hook-form';
 import { UpcomingLaunches } from "../OutcomingLaunches";
 import { PastLaunches } from "../PastLaunches";
 import { Container, Content, ButtonContainer, FilterContainer } from "./styles";
 
 import AOS from 'aos';
-import 'aos/dist/aos.css';
+import { Link } from "react-router-dom";
 
 type FormData = {
     launch_year: string,
@@ -50,6 +50,7 @@ export function Table() {
                 <h1>Launches</h1>
                 <div>
                     <button onClick={handleShowPastLaunches}>Past launches</button>
+                    <Link to='/favorite' className="handle-page-favorite">Favorites</Link>
                     <button onClick={handleShowUpcomingLaunches}>Upcoming launches</button>
                     <p>Filter</p>
                 </div>
@@ -63,12 +64,6 @@ export function Table() {
                     <label>Success</label>
                     <input type="radio" value="false" {...register("launch_success")}/>
                     <label>failed</label>
-                    
-                    {/* <select {...register("launch_success")}id="success">
-                        <option>All</option>
-                        <option>Success</option>
-                        <option>Falied</option> 
-                    </select> */}
                 </div>
                 <button type="submit">Aply</button>
                 {filter.launch_year === '0' || 
@@ -83,7 +78,7 @@ export function Table() {
         <Content>
             {!handleRender ? 
                 
-                <PastLaunches isRendering={handleRender} filterLaunche={filter}/>
+                <PastLaunches data-testid="card-componet-past" isRendering={handleRender} filterLaunche={filter}/>
                 :
                 <UpcomingLaunches isRendering={handleRender} filterLaunche={filter}/>
             }

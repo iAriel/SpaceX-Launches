@@ -50,7 +50,7 @@ export const ButtonContainer = styled.div`
         font-size: 0.8rem
     }
 
-    button{
+    button, .handle-page-favorite{
         width: 13rem;
         height: 4rem;
 
@@ -62,23 +62,30 @@ export const ButtonContainer = styled.div`
 
         &:hover{
             box-shadow: inset 0 -250px 0 0 var(--light);
-            color: var(--dark)
+            color: var(--dark);
         }
 
         &:last-child{
             margin-left: 1rem;
         }
     }
+
+    .handle-page-favorite{
+        text-decoration: none;
+        padding: 1.09rem 4rem 1.3rem 4rem;
+        font-size: 1.09rem;
+        border-left: none;
+        border-right: none;
+    }
 `
 
 export const FilterContainer = styled.form`
-    width: 25%;
+    width: 33%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     margin-bottom: 3rem;
     flex-direction: row;
     align-items: center;
-    
     div{
         display: flex;
         display: flex;

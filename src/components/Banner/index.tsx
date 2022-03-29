@@ -1,8 +1,8 @@
+import React from 'react'
 import { Link } from "react-router-dom";
 import { Container, Content } from "./styles";
 
 import AOS from 'aos';
-import 'aos/dist/aos.css';
 import { useEffect } from "react";
 
 export function Banner(){

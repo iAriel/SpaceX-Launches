@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+
+import React, { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { Card } from "../Card";
 import { Spinner } from "../Spinner";
@@ -28,7 +29,7 @@ interface LauncheProps {
 }
 export function PastLaunches({isRendering, filterLaunche}: LauncheProps){
     const [pastLaunches, setPastLaunches] = useState<CardPropsState[]>([])
-
+    
     useEffect(()=> {
         api.get('/past')
         .then(response => setPastLaunches(response.data))
